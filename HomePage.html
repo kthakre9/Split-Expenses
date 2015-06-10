@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Split Expenses</title>
+  <link rel="shortcut icon" href="images/icon.ico">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="bootstrap-glyphicons-master\bootstrap-glyphicons-master\css\bootstrap.icon-large.min.css">
+    <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" />
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <!-- // <script src="js\angular.min.js"></script> -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>   
+     <script src="js\bootstrap-select.js"></script>
+	 
+     <script data-require="ng-table@*" data-semver="0.3.1" src="http://bazalt-cms.com/assets/ng-table/0.3.1/ng-table.js"></script>     
+     <link data-require="ng-table@*" data-semver="0.3.1" rel="stylesheet" href="http://bazalt-cms.com/assets/ng-table/0.3.1/ng-table.css" />
+
+    <!-- <script data-require="ng-table@*" data-semver="0.3.0" src="http://bazalt-cms.com/assets/ng-table/0.3.0/ng-table.js"></script> -->
+    <link rel="stylesheet" href="ng-table-master\ng-table-master\src\styles\ng-table.less" />
+
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    
+    <style type="text/css">
+       .infinteScrollDiv{
+        height: 100px;
+        height: 500px;
+        width: 500px;
+        background-color: red;
+       }
+       .ng-table {
+           border: 2px solid #585858!important;
+           
+       }
+       #oweId{
+        width: 50%;
+        margin: 1% 0px 0px 18%;
+       }
+       #frndsOweId{        
+        width: 50%;
+        margin: 0px 0px 0px 18%;
+       }
+       .btn-group.pull-right.ng-scope{
+        display: none;
+       }       
+       .navbar a{
+            color:white;
+       }
+       #addBillDiv{
+            margin: 110px 0 30px 24%;
+       }
+        #modalRow1{
+            padding: 2% 1% 1% 2%;
+            height: 50px;
+        }
+        .bigicon {
+            font-size: 15px;
+            color: #36A0FF;
+        }
+        #amount{
+            width: 100px;
+        }
+        .container-fluid{
+            color: #FFFFFF;
+            background-color: #005A31;
+        }
+        .navbar-inverse .navbar-brand, .navbar-inverse .navbar-nav>li>a{
+        color: white;
+        }    
+        .addBill{           
+            padding: 30px 20px 50px;
+            font-size: 16px;
+            line-height: 20px;
+            text-align: left;
+            vertical-align: middle;
+            color: #333333;
+            background-color: white;
+            border-radius: 0 0 4px 4px;
+        }
+        .quick-add-container {
+          width: 180px;
+          background-color: #f9f9f9;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+        }
+        #quickAdd{
+            text-align: center;
+        }
+        /*.user-image {
+          position: relative;
+          display: inline-block;
+          max-width: 50px;
+          max-height: 50px;
+          padding: 0px 0px 0px 20px;
+        }*/
+        .user-image1 {
+          position: relative;
+          display: inline-block;
+          max-width: 50px;
+          max-height: 50px;
+          padding: 0px 0px 0px 20px;
+        }
+        .pic-small {
+          width: 50px;
+          height: 50px;
+        }
+        .quick-add-container {
+          width: 150px;
+          padding-top: 10px;
+          background-color: #f9f9f9;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+        }
+        .image-container{
+            padding: 0px 0px 25px 0px;
+           /* margin-left: 20px;*/
+        }
+        #qucikaddTd{
+            width: 150px;
+        }
+        .friends-container{
+            padding: 10px;
+        }
+        #nameId1{
+            margin-left: 25px;
+        }
+        .firstFriend{
+            width: 420px;
+        }
+        .scrollDiv{
+            overflow-y: scroll;
+            height: 300px;
+        }
+        .rightAling{
+            margin-left: 10px;
+        }
+        .removeIcon{
+            padding-left: 50px;
+        }
+        .amounttable{
+            
+            border-left: thin solid grey;
+        }
+        #oweId1,#oweId2{
+            color: red;
+        }
+        #frndsOweId1,#frndsOweId2 {
+            color: #5bc5a7;
+        }
+        #gallery { float: left; width: 100%; min-height: 12em;   padding-left: 5px;}
+        .gallery.custom-state-active { background: #eee; }
+        .gallery li { float: left; width: 66px; padding: 0.4em; margin: 0 0.4em 0.4em 0; text-align: center; }
+        .gallery li h5 { margin: 0 0 0.4em; cursor: move; }
+        .gallery li a { float: right; }
+        .gallery li a.ui-icon-zoomin { float: left; }
+        .gallery li img { width: 100%; cursor: move; }
+        .modal-body p {
+             word-wrap: break-word;
+             word-break: break-all;
+        }
+        .container{
+         /* width: 70%;
+          margin: 0px auto;*/
+        }
+        .addedSuceesfully{
+          display: none;
+          margin-left: 450px;
+          margin-top: 80px;
+          color: blue;
+        }
+        #flash-container { 
+          display: none;         
+          position: absolute;
+          margin: 0px auto;
+          width: 40%;
+          margin-left: 480px;
+          top: 49px;
+          /*left: 0;*/
+          color: #333;
+          text-shadow: none;
+        }
+        #flash-container .alert-message.notice {
+          color: white;
+          padding: 10px 0 0 20px;
+          height: 40px;
+          background: #118C4E;
+          border-color: #ddc;
+        }
+        .close {
+          float: right;
+          font-size: 20px;
+          font-weight: bold;
+          line-height: 18px;
+          color: #000;
+          text-shadow: 0 1px 0 #fff;
+          opacity: .2;
+          padding: 0px 10px 0 0;
+          /*filter: alpha(opacity=20);*/
+        }
+        #block1{
+          margin-left: 50px;
+          width: 30%;
+          float: left;
+        }
+        #block2{
+          margin-left: 50px;
+          width: 30%;
+          float: left;
+        }
+        .leftSide {
+          padding-right: 10px;
+          width: 20%;
+          margin: 85px 0 0 20px;
+          float: left;
+        }
+        #pieChart{
+            width: 260px;
+            height: 180px;
+        }
+        #barChart{
+            width: 320px;
+            height: 180px;
+        }
+        #accountSummary{
+          width: 300px;
+        }
+        #take12,#owe12{
+          font-size: 20px;
+        }
+        #tableOwe{
+
+        }
+        th{
+          color: white;
+          background-color: #005A31;
+          border-bottom: 2px solid #585858!important;
+        }
+        .input-filter{
+          border: 2px solid #585858!important;
+          background-color: white!important;
+        }
+        .ng-table-filters .ng-scope{
+          background-color: #F3FAB6;
+
+        }
+        body{
+          font: 16px arial, sans-serif;
+          background-color: #F3FAB6;
+        }
+        .ui-accordion-header{
+          color: white;
+           background:#005A31;
+        }
+        .ui-accordion-content{
+            background:#C1E1A6;
+        }
+        span{
+          font-weight: bold;
+          margin-bottom: 2px;
+        }
+        .modal-header{
+          color: white;
+          background:#005A31;
+        }
+        #errorclass1{
+         display: none;
+        }
+    </style>
+</head>
+<body ng-app="main">
+<div class="bs-example">
+    <nav id="myNavbar" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <ul class="nav navbar-nav navbar-left">
+                  <li>
+                    <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-cutlery"></span> Split Expenses</a>
+                  </li>
+                  <li>
+                    <a class="navbar-brand" href="history.html"><span class="glyphicon glyphicon-time"></span> History</a>
+                  </li>
+                </ul>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div  class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                	<li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle navbar-brand"><span class="glyphicon glyphicon-globe"></span> Notifications<b class="caret"></b></a>
+                        <ul class="dropdown-menu">  
+                          
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle navbar-brand"><span class="glyphicon glyphicon-user"></span> Ketki<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Your Account</a></li>
+                            <li><a href="#">Create Group</a></li>                            
+                            <li class="divider"></li>
+                            <li><a href="LoginPage.html">Log out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div>
+    </nav>
+   
+</div>	
+
+<div class="">
+  <div id="accordion" class="leftSide">
+    <h3 class="accHead">Expense Summary</h3>
+     <div>
+              <table>
+                 <tbody>
+                     <tr>
+                         <td>
+                              <span><strong>Avg Monthly Cost:</strong></span>
+                         </td>
+                         <td class="col-md-2">
+                            <span><strong>$900</strong></span>
+                         </td>
+                     </tr>
+                     <tr>
+                         <td  >
+                            <span><strong>Total Expenses: </strong></span>
+                         </td>
+                         <td class="col-md-2">
+                            <span>$10000</span>
+                         </td>
+                     </tr>
+                     <tr>
+                         <td>
+                              <span>Monthly Budget:</span>
+                         </td>
+                         <td class="col-md-2">
+                            <span>$700</span>
+                         </td>
+                     </tr>
+                   
+                 </tbody>
+             </table>  
+           </div>
+           <h3>Category Wise Distribution</h3>
+           <div>
+             <table>
+                 <tbody>
+                     <tr>
+                         <td>
+                              <span>Rent:</span>
+                         </td>
+                         <td class="col-md-2">
+                            <span>$600</span>
+                         </td>
+                     </tr>
+                     <tr>
+                         <td>
+                              <span>Food:</span>
+                         </td>
+                         <td class="col-md-2">
+                            <span>$300</span>
+                         </td>
+                     </tr>
+                     <tr>
+                         <td>
+                              <span>Grocery:</span>
+                         </td>
+                         <td class="col-md-2">
+                            <span>$200</span>
+                         </td>
+                     </tr>
+                     <tr>
+                         <td>
+                             <span>Entertainment:</span>
+                         </td>
+                         <td class="col-md-2">
+                            <span>$100</span>
+                         </td>
+                     </tr>
+                     <tr>
+                         <td>
+                             <span>Personal:</span>
+                         </td>
+                         <td class="col-md-2">
+                            <span>$100</span>
+                         </td>
+                     </tr>
+                     <tr>
+                         <td>
+                              <span>Other:</span>
+                         </td>
+                         <td class="col-md-2">
+                            <span>$800</span>
+                         </td>
+                     </tr>
+                 </tbody>
+             </table>  
+           </div>
+           <h3>Account Summary</h3>
+           <div>
+            <img id="accountSummary" src="images/summary.jpg" alt="Summary">
+           </div>
+           <h3>Pie Chart</h3>
+           <div>
+             <img id="pieChart" src="images/big_pie_chart.png" alt="pie chart">
+           </div>
+           <h3>Bar Graph</h3>
+           <div>
+            <img id="barChart" src="images/bargraph1.png" alt="Bar chart">
+           </div>
+
+  </div>
+
+  <div id="flash-container">
+    <div class="alert-message notice">
+      <a class="close" href="#" >x</a>
+      Bill added Sucessfully
+    </div>
+  </div>
+<div id="addBillDiv">
+    <button type="button" data-toggle="modal" data-target="#largeModal" id="addBill1" class="btn btn-primary">Add Bill</button>
+    <!-- <a href="#" data-toggle="modal" data-target="#largeModal"> Add Bill </a>     -->
+</div>
+
+ <div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+     <div class="modal-content">
+       <div class="modal-header">
+         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+         <h4 class="modal-title" id="myModalLabel">SPLIT A BILL WITH FRIENDS</h4>
+       </div>
+       <div class="modal-body">
+         <div class="row" id="modalRow1">
+            <div class="col-md-2">
+                <h4>Paid By:</h4>
+            </div>
+            <div class="col-md-2">
+                <select class="selectpicker" data-live-search="true"  data-width="100%">
+                   <option>Me</option>
+                   <option>Ankit</option>
+                   <option>Vishal</option>
+                   <option>Sid</option>
+                   <option>Abhi</option>
+                 </select>
+            </div>
+             <div class="col-md-3">
+                <span class="col-md-1 col-md-offset-2"><i class="fa fa-usd bigicon"></i></span>                
+                <input id="amount" min="1" ng-model="amount"name="name" type="number" placeholder="Amount" class="form-control" required>
+             </div>
+             <div class="col-md-5">
+                <input id="expName" ng-model="expenseName" name="expName"  type="text"  placeholder="For what? (e.g. drinks at Punters and Dinner)" class="form-control"  required="required">
+             </div>
+         </div>
+         <div class="row">
+            <div class="span12">
+                <div class="addBill">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td id="qucikaddTd" class="border-top-none">
+                                    <div class="quick-add-container" style="width: 180px;">
+                                        <p id="quickAdd" class="font-10pt mt_10"> Quick Add </p>
+                                        <hr>
+                                        <div class="scrollDiv">
+                                          <ul id="gallery" class="gallery ui-helper-reset ui-helper-clearfix">
+                                            <li class="user-image ui-widget-content ui-corner-tr">                                             
+                                              <img class="pic-small" data-toggle="tooltip" title="Rahul Kale" src="images/Rahul.png" id="RahulKale" alt="Rahul Kale">                                    
+                                            </li>
+                                            <li class="user-image ui-widget-content ui-corner-tr">
+                                              <img class="pic-small" data-toggle="tooltip" title="Mihir Mehta"  src="images/Mihir.png" id="MihirMehta" alt="Mihir Mehta">
+                                            </li>
+                                            <li class="user-image ui-widget-content ui-corner-tr">
+                                              <img class="pic-small"  data-toggle="tooltip" title="Neha Savanur" src="images/neha.jpg" alt="Neha Savanur">
+                                            </li>
+                                            <li class="user-image ui-widget-content ui-corner-tr">
+                                              <img class="pic-small"  data-toggle="tooltip" title="Rahul Puri" src="images/Puri.png" alt="Rahul Puri">
+                                            </li>
+                                            <li class="user-image ui-widget-content ui-corner-tr">
+                                              <img class="pic-small" data-toggle="tooltip" title="Sid Jasani"  src="images/Sid.png" alt="Sid Jasani">
+                                            </li>
+                                            <li class="user-image ui-widget-content ui-corner-tr">
+                                              <img class="pic-small"  data-toggle="tooltip" title="Radhika Bade" src="images/rads.jpg" alt="Radhika Bade">
+                                            </li>
+                                            <li class="user-image ui-widget-content ui-corner-tr">
+                                              <img class="pic-small"  data-toggle="tooltip" title="Abhi Tiwari" src="images/abhi.png" alt="Abhi Tiwari">
+                                            </li>
+                                            <li class="user-image ui-widget-content ui-corner-tr">
+                                              <img class="pic-small"  data-toggle="tooltip" title="Ankit" src="images/Ankit.png" alt="Ankit">
+                                            </li>
+                                            <li class="user-image ui-widget-content ui-corner-tr">
+                                              <img class="pic-small"  data-toggle="tooltip" title="Ketki Thakre" src="images/kt.jpg" alt="Ketki Thakre">
+                                            </li>
+                                            <li class="user-image ui-widget-content ui-corner-tr">
+                                              <img class="pic-small"  data-toggle="tooltip" title="Neha Savanur" src="images/neha.jpg" alt="Neha Savanur">
+                                            </li>
+                                            <li class="user-image ui-widget-content ui-corner-tr">
+                                              <img class="pic-small"  data-toggle="tooltip" title="Neha Savanur" src="images/neha.jpg" alt="Neha Savanur">
+                                            </li>
+                                           </ul>
+                                           <!--  <div class="image-container">
+                                                <div class="user-image">
+                                                    <img class="pic-small" data-toggle="tooltip" title="Rahul Kale" src="images/Rahul.png" id="RahulKale" alt="Rahul Kale">
+                                                </div>                                             
+                                                
+                                                
+                                                <div class="user-image">
+                                                    <img class="pic-small" data-toggle="tooltip" title="Mihir Mehta"  src="images/Mihir.png" id="MihirMehta" alt="Mihir Mehta">
+                                                </div>   
+                                            </div>   
+                                            <div class="image-container">
+                                                <div class="user-image">
+                                                    <img class="pic-small"  data-toggle="tooltip" title="Rahul Puri" src="images/Puri.png" alt="Rahul Puri">
+                                                </div>                                                
+                                                
+                                                
+                                                <div class="user-image">
+                                                    <img class="pic-small" data-toggle="tooltip" title="Sid Jasani"  src="images/Sid.png" alt="Sid Jasani">
+                                                </div>   
+                                            </div> 
+                                            <div class="image-container">
+                                                <div class="user-image">
+                                                    <img class="pic-small"  data-toggle="tooltip" title="Abhi Tiwari" src="images/abhi.png" alt="Abhi Tiwari">
+                                                </div>                                             
+                                                
+                                                
+                                                <div class="user-image">
+                                                    <img class="pic-small"  data-toggle="tooltip" title="Ankit" src="images/Ankit.png" alt="Ankit">
+                                                </div>   
+                                            </div> 
+                                            <div class="image-container">
+                                                <div class="user-image">
+                                                    <img class="pic-small"  data-toggle="tooltip" title="Leo Messi" src="images/Messi.png" alt="Leo Messi">
+                                                </div>                                                
+                                                
+                                                
+                                                <div class="user-image">
+                                                    <img class="pic-small"  data-toggle="tooltip" title="Wayne Rooney" src="images/Rooney.png" alt="Wayne Rooney">
+                                                </div>   
+                                            </div>  
+                                            <div class="image-container">
+                                                <div class="user-image">
+                                                    <img class="pic-small"  data-toggle="tooltip" title="HRahul Kale" src="images/Rahul.png" alt="Rahul Kale">
+                                                </div>                                                
+                                                
+                                                
+                                                <div class="user-image">
+                                                    <img class="pic-small"  data-toggle="tooltip" title="Mihir Mehta" src="images/Mihir.png" alt="Mihir Mehta">
+                                                </div>   
+                                            </div>   
+                                            <div class="image-container">
+                                                <div class="user-image">
+                                                    <img class="pic-small" data-toggle="tooltip" title="Rahul Puri" src="images/Puri.png" alt="Rahul Puri">
+                                                </div>                                                
+                                                
+                                                
+                                                <div class="user-image">
+                                                    <img class="pic-small"  data-toggle="tooltip" title="Sid Jasani" src="images/Sid.png" alt="Sid Jasani">
+                                                </div>   
+                                            </div> 
+                                            <div class="image-container">
+                                                <div class="user-image">
+                                                    <img class="pic-small"  data-toggle="tooltip" title="Abhi Tiwari" src="images/abhi.png" alt="Abhi Tiwari">
+                                                </div>                                             
+                                                
+                                                
+                                                <div class="user-image">
+                                                    <img class="pic-small"  data-toggle="tooltip" title="Ankit" src="images/Ankit.png" alt="Ankit">
+                                                </div>   
+                                            </div> 
+                                            <div class="image-container">
+                                                <div class="user-image">
+                                                    <img class="pic-small"  data-toggle="tooltip" title="Leo Messi" src="images/Messi.png" alt="Leo Messi">
+                                                </div>                                                
+                                                
+                                                
+                                                <div class="user-image">
+                                                    <img class="pic-small"  data-toggle="tooltip" title="Wayne Rooney" src="images/Rooney.png" alt="Wayne Rooney">
+                                                </div>   
+                                            </div>       -->  
+                                        </div>   
+                                                                     
+                                           
+                                    </div>
+                                    <hr>
+                                </td>
+                                <td class="border-top-none">
+                                    <div >
+                                        <ul class="nav nav-tabs">
+                                            <li>
+                                                <a>Share Equally</a>
+                                            </li>
+                                             <li>
+                                                <a>Split By Parts</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="friends-container">
+                                        <table>
+                                            <tbody class="expenseDetials">
+                                                <tr >
+                                                    <td class="firstFriend">
+                                                        <div class="user-image1">                                                          
+                                                            <img class="pic-small"  data-toggle="tooltip" title="Ketki Thakre" src="images/kt.jpg" alt="Ketki Thakre">
+                                                        </div> 
+                                                        <a id="nameId1" href="#">Ketki Thakre</a>                                                        
+                                                    </td>
+                                                    <td class="equalAmt">$0.00</td>
+                                                    <td class="removeIcon">
+                                                        <span class="glyphicon glyphicon-remove-circle"></span>
+                                                    </td>
+                                                </tr>                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <hr>
+                                    <hr>
+                                    <table class="secTable" width="500">
+                                        <tr>
+                                            <td class="expsenseName">
+                                              <p>{{expenseName}}</p>                                                
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div>
+
+                                                <input type="text" readonly="readonly" id="datepicker">
+                                                 <span class="glyphicon glyphicon-calendar"></span>
+                                                </input>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div align="right" class="rightAling">
+                                                    <span class="col-md-4 col-md-offset-4"><i class="fa fa-usd bigicon"><label>{{amount}}</label></i></span>  
+                                                    
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                    </table>
+                                    <br>
+                                    <div id="errorclass1" class="alert alert-danger" role="alert">
+                                      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                      <span class="sr-only">Error:</span>
+                                      Invalid Entry
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>    
+                    </table>
+                </div>
+            </div>           
+         </div>
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+         <button type="button" id="addBillButton" data-dismiss="modal" class="btn btn-primary">Add Bill</button>
+       </div>
+     </div>
+   </div>
+ </div>
+
+ <div class="blockcontainer">
+   <div id="block1" ng-controller="DemoCtrl1" id="oweId">
+       <div id="owe12" class="row">
+           <div class="col-md-7" id="oweId1"> <label col-span="">I Owe Friends</label></div>
+           <div class="col-md-4" id="oweId2"> <label align="right">Total:</label><label>$100</label></div>
+       </div>
+       <table id="tableOwe" ng-table="tableParams1" show-filter="true" class="table">
+       <tr ng-repeat="user in $data">
+           <td data-title="'Name'" sortable="'name'" filter="{ 'name': 'text' }"><img class="pic-small"  data-toggle="tooltip" title={{user.title}} src={{user.src}} alt={{user.title}}> {{user.name}}</td>
+           <td data-title="'Amount'" sortable="'amount'" class="amounttable">{{user.amount | currency}}</td>
+       </tr>
+       </table>
+   </div>
+   
+   <div id="block2" ng-controller="DemoCtrl" id="frndsOweId">
+       <div id="take12" class="row">
+           <div class="col-md-7" id="frndsOweId1"> <label col-span="">Friends Owe Me</label></div>
+           <div class="col-md-4" id="frndsOweId2"> <label align="right">Total:<label>$100</label></label></div>
+       </div>
+       <table ng-table="tableParams" show-filter="true" class="table">
+       <tr ng-repeat="user in $data">
+           <td data-title="'Name'" sortable="'name'" filter="{ 'name': 'text' }"><img class="pic-small"  data-toggle="tooltip" title={{user.title}} src={{user.src}} alt={{user.title}}> {{user.name}}</td>
+           <td data-title="'Amount'" sortable="'amount'" class="amounttable">{{user.amount | currency}}</td>
+       </tr>
+       </table>
+   </div>
+ </div>
+
+<!-- <div class="row">
+  <div class="col-md-12">
+     
+  </div>
+  <div class="col-md-0">
+
+  </div>
+</div> -->
+</div>
+<script>
+   // $('.selectpicker').selectpicker({
+   //      style: 'btn-info',
+   //      size: 4
+   //  });
+    $( "#datepicker" ).datepicker();
+    $('#datepicker').datepicker('setDate',  new Date());
+</script>
+<script type="text/javascript">
+var x=null;
+var y= null;
+var amount=0;
+
+function equalAm(amt){
+  var n = $( ".firstFriend .user-image1 img" ).length;  
+  var equal = amt/n;  
+  $(".equalAmt").html("$"+equal.toFixed(2));
+}
+
+  $("#amount").keyup(function() {
+    amount = $(this).val();
+    if (amount< 1){
+      $('#errorclass1').css("display","block");
+      return false;
+    }
+    $('#errorclass1').css("display","none");
+    equalAm(amount);    
+  });
+
+$("body").on("click",".user-image img",function(){
+  
+  var id = $(this).attr("id");
+  x = id;
+
+  // x = "'#"+id+"'";
+  var name = $(this).attr( "title" );
+  var oldContent = $(this).parents(".user-image").html();
+
+  y = oldContent;
+  var newContent = '<tr><td class="firstFriend"><div class="user-image1">' + oldContent  +' </div><a id="nameId1" href="#"> ' + name + '</a> </td><td class="equalAmt"></td><td class="removeIcon"><span class="glyphicon glyphicon-remove-circle"></span></td></tr>';                                
+  $(".expenseDetials").append(newContent);
+  $(this).parents(".user-image").remove();
+  equalAm(amount);
+})
+// $(".user-image img").click(function(){   
+//     // $(this).unbind( "click" );
+   
+// });
+// $(".removeIcon").on("click", function(){
+//     var a = $(this).parent("tr");
+//     a.remove();
+// });
+$("body").on("click",".removeIcon", function(){    
+    var b = $(this).prev("td").prev("td").find(".user-image1").html();
+    var a = $(this).parent("tr");
+    a.remove();
+    var p = '<li class="user-image ui-widget-content ui-corner-tr">'+b+'</li>'
+    $("#gallery").prepend(p);
+    equalAm(amount);
+});
+ 
+$(document).ready(function(){
+    var amt = ('#amount').value;
+   
+});
+ 
+$("#addBillButton").click(function(){
+    var amt = $("#amount").val();
+    var tet = $('#expName').val();
+    console.log(tet)
+    if (amt < 1){
+      $('#errorclass1').css("display","block");
+      $("#amount").focus();
+      return false;
+    }
+
+    if( tet.length <= 0){
+        $('#errorclass1').css("display","block");
+        $("#expName").focus();
+        return false;
+    }
+    $('#flash-container').css("display","block");
+})
+
+$('.close').click(function(){
+   $('#flash-container').css("display","none");; 
+  return false;
+})
+
+$(function() {
+   $( "#accordion" ).accordion({
+     
+     animate: 1000,
+     heightStyle: "content",
+    collapsible: true
+   });      
+ });
+
+</script>
+<script>
+var app = angular.module('main', ['ngTable']);
+app.controller('DemoCtrl1', function($scope, $filter, ngTableParams) {
+    
+   var data = [
+            {name: "Messi", amount: 22, src:'images/Messi.png', title:'Leo Messi'},
+            {name: "Rahul", amount: 30, src:'images/Rahul.png', title:'Rahul Kale'},
+            {name: "Mihir", amount: 34, src:'images/Mihir.png', title:'Mihir Mehta'},
+            {name: "Rahul", amount: 29, src:'images/Puri.png', title:'Rahul Puri'},
+            {name: "Sid", amount: 56, src:'images/Sid.png', title:'Sid Jasani'},
+            {name: "Messi", amount: 67, src:'images/Messi.png', title:'Leo Messi'},
+            {name: "Rahul", amount: 43, src:'images/Rahul.png', title:'Rahul Kale'},
+            {name: "Mihir", amount: 27, src:'images/Mihir.png', title:'Mihir Mehta'},
+            {name: "Rahul", amount: 29, src:'images/Puri.png', title:'Rahul Puri'},
+            {name: "Sid", amount: 99, src:'images/Sid.png', title:'Sid Jasani'}
+        ];
+        $scope.tableParams1 = new ngTableParams({
+                      // show first page
+            count: 50,          // count per page
+            filter: {
+                      // initial filter
+            },
+            sorting: {
+                     // initial sorting
+            }
+        }, {
+            total: data.length, // length of data
+            getData: function($defer, params) {
+                // use build-in angular filter
+                var filteredData = params.filter() ?
+                        $filter('filter')(data, params.filter()) :
+                        data;
+                var orderedData = params.sorting() ?
+                        $filter('orderBy')(filteredData, params.orderBy()) :
+                        data;
+
+                params.total(orderedData.length); // set total for recalc pagination
+                $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+            }
+        });
+       
+})
+app.controller('DemoCtrl', function($scope, $filter, ngTableParams){
+  var data = [
+       {name: "Wayne", amount: 50, src:'images/Rooney.png', title:'Wayne Rooney'},
+       {name: "Ankit", amount: 90, src:'images/Ankit.png', title:'Ankit'},
+       {name: "Abhi", amount: 77 , src:'images/abhi.png', title:'Abhi Tiwari'},
+       {name: "Wayne", amount: 58, src:'images/Rooney.png', title:'Wayne Rooney'},
+       {name: "Ankit", amount: 33, src:'images/Ankit.png', title:'Ankit'},
+       {name: "Abhi", amount: 99 , src:'images/abhi.png', title:'Abhi Tiwari'},
+       {name: "Wayne", amount: 34, src:'images/Rooney.png', title:'Wayne Rooney'},
+       {name: "Ankit", amount: 40, src:'images/Ankit.png', title:'Ankit'},
+       {name: "Abhi", amount: 10 , src:'images/abhi.png', title:'Abhi Tiwari'}
+   ];
+   $scope.tableParams = new ngTableParams({
+                 // show first page
+       count: 10,          // count per page
+       filter: {
+                 // initial filter
+       },
+       sorting: {
+                // initial sorting
+       }
+   }, {
+       total: data.length, // length of data
+       getData: function($defer, params) {
+           // use build-in angular filter
+           var filteredData = params.filter() ?
+                   $filter('filter')(data, params.filter()) :
+                   data;
+           var orderedData = params.sorting() ?
+                   $filter('orderBy')(filteredData, params.orderBy()) :
+                   data;
+
+           params.total(orderedData.length); // set total for recalc pagination
+           $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+       }
+   });
+})
+</script>
+</body>
+<html>

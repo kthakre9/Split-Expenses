@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html ng-app="APP">
+<head>
+	<meta charset="UTF-8">
+	<title>angular-count-to example</title>
+	<style type="text/css">
+		.element{cursor:pointer;float:left;background-color:#ccc;padding:4px;}
+	</style>
+	
+</head>
+<body ng-app="APP" ng-controller="ExampleController">
+	<p>{{data}}</p>
+    <button type="button" ng-csv="data" filename="test.csv">Export</button>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular-sanitize.js"></script>
+	<script src="asafdav-ng-csv-d34fdf0\build\ng-csv.js"></script>
+	<script>
+		angular.module('APP',["ngSanitize","ngCsv"]).
+		controller('ExampleController', function ($scope) {
+			$scope.filename = "test";
+			$scope.data = [{a: 1, b:2}, {a:3, b:4}];       
+    	});
+	</script>
+</body>
+</html>

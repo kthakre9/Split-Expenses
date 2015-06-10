@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <script data-require="angular.js@*" data-semver="1.2.0-rc3-nonmin" src="http://code.angularjs.org/1.2.0-rc.3/angular.js"></script>
+    <script data-require="ng-table@*" data-semver="0.3.1" src="http://bazalt-cms.com/assets/ng-table/0.3.1/ng-table.js"></script>
+    <script data-require="ng-table-export@0.1.0" data-semver="0.1.0" src="http://bazalt-cms.com/assets/ng-table-export/0.1.0/ng-table-export.js"></script>
+    
+    <link data-require="ng-table@*" data-semver="0.3.0" rel="stylesheet" href="http://bazalt-cms.com/assets/ng-table/0.3.0/ng-table.css" />
+    <link data-require="bootstrap-css@*" data-semver="3.0.0" rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
+    
+    <script src="script.js"></script>
+    <style type="text/css">
+    body {
+        padding: 10px !important;   
+    }
+
+    .ng-table {
+        border: 1px solid #000;
+    }
+    </style>
+  </head>
+
+  <body ng-app="main" ng-controller="DemoCtrl">
+  
+    Example from <a target="_blank" href="http://www.netzdenker.de/musterseiten/ngTable/">Maximilian Eberl</a>
+    
+    <table ng-table="tableParams" class="table">
+        <tbody ng-repeat="p in $data">
+        <tr id="tr{{p.id}}" ng-class-odd="'odd'" ng-class-even="'even'">
+            <td class="rowTd" data-title="'ID'"          sortable="'id'">{{p.id}}</td>
+            <td class="rowTd" data-title="'Firstname'"   sortable="'fn'">{{p.fn}}</td>
+            <td class="rowTd" data-title="'Lastname'"    sortable="'ln'">{{p.ln}}</td>
+            <td class="rowTd" data-title="'Description'" sortable="'dc'">{{p.dc}}</td>
+            <td class="rowTd" data-title="'Email'"       sortable="'em'">{{p.em}}</td>
+            <td class="rowTd" data-title="'Phone'"       sortable="'ph'">{{p.ph}}</td>
+            <td class="rowTd" ><input type=button id="editRowBtn{{p.id}}" value="edit"
+                                      ng-click="setEditId(p.id)"></td>
+        </tr>
+        <tr ng-show="editId===p.id" ng-if="editId===p.id">
+            <td colspan="7" ng-include src="'http://localhost:8080/com/editRow.jsp'"></td>
+        </tr>
+        </tbody>
+    </table>
+  </body>
+
+</html>

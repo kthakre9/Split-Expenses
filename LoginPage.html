@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Split Expenses</title>
+  <link rel="shortcut icon" href="images/icon.ico">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+      <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+      <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+    <style type="text/css">
+
+    #imageDiv{
+        margin: auto;
+        position: absolute;
+        top: 20%;
+        left: 25%
+
+    }
+    .carousel-inner > .item > img,
+    .carousel-inner > .item > a > img {
+        width: 98%;
+        margin: auto;
+         height:92%;
+         max-height: 92%;
+    }
+    #myCarousel{
+       padding-top: 3%;
+    }
+    #aboutus{
+
+        width: 70%;
+        margin: 0 auto;
+        padding-top: 50px;
+        height: auto;
+    }
+    #contactUs{
+        width: 70%;
+        margin: 0 auto;
+        padding-top: 40px;
+        height: 50%;
+    }
+    #aboutUsSecond{
+        padding-top: 20px;
+    }
+    #teamId img{
+
+        max-height: 150px;
+    }
+    .bigicon {
+        font-size: 35px;
+        color: #36A0FF;
+    }
+    .navbar a{
+         color:white;
+    }
+   #myModal{
+        margin-top: 10%;
+   }
+   #container-fluid{
+        color: white;
+        background-color: #005A31;
+    }
+    .navbar-inverse .navbar-brand, .navbar-inverse .navbar-nav>li>a{
+        color: white;
+    }     
+    .ui-progressbar {
+       position: relative;
+     }
+     .progress-label {
+       position: absolute;
+       left: 50%;
+       top: 4px;
+       font-weight: bold;
+       text-shadow: 1px 1px 0 #fff;
+     }
+     #errorclass{
+      display: none;
+     }
+     #errorclass1{
+      display: none;
+     }
+     #submitDiv{
+      margin-left: 67%;
+     }
+     body{
+      font: 16px arial, sans-serif;
+      background-color: #F3FAB6;
+     }
+     .forBorder{
+      border: 2px solid;
+     }
+     .hideforProgessbar{
+         opacity:0;
+     }
+
+     @media only screen and (max-width: 500px) {
+         .imgresponsive{
+             display:none;
+         }    
+         .panes{
+             margin-left: 0px;
+             height:30px;
+
+         }
+         .panes p{
+             font-family: Arial,Helvetica,sans-serif;
+             letter-spacing: normal;
+             color:#004990;
+             font-size:15px;
+         }
+         .headerresponsive{
+             display: block;
+             letter-spacing: normal;
+             color:#004990;
+        
+         }
+       }
+       .modal-header{
+         color: white;
+         background:#005A31;
+       }
+       #flash-container { 
+         display: none;         
+         position: absolute;
+         margin: 0px auto;
+         width: 40%;
+         margin-left: 480px;
+         top: 49px;
+         /*left: 0;*/
+         color: #333;
+         text-shadow: none;
+         z-index: 3;
+       }
+       #flash-container .alert-message.notice {
+         color: white;
+         padding: 10px 0 0 20px;
+         height: 40px;
+         background: #118C4E;
+         border-color: #ddc;
+       }
+
+    </style>
+</head>
+<body>
+<div class="bs-example">
+    <nav id="myNavbar" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div id="container-fluid" class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" >
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <ul class="nav navbar-nav navbar-left">
+                <li><a class="navbar-brand" href="#myCarousel"><span class="glyphicon glyphicon-cutlery"></span> Split Expenses</a></li>
+                </ul>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                     <li><a class="navbar-brand" href="#aboutus"> <span class="glyphicon glyphicon-info-sign"></span> About Us</a></li>
+                     <li><a  class="navbar-brand" id="contactUsLink" href="#contactUs"> <span class="glyphicon glyphicon-envelope"></span> Contact Us</a></li>
+                	 <li class="dropdown">
+                        <a href="#myModal" role="button" data-toggle="modal" id="loginIdButton" data-toggle="dropdown" class="navbar-brand dropdown-toggle"><span class="glyphicon glyphicon-log-in"></span> Login</a>                                   
+                    </li>
+                    <li><a  href="#signup_modal" role="button" data-toggle="modal" class="navbar-brand" href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div>
+    </nav>
+  </div>
+   <div id="flash-container">
+       <div class="alert-message notice">
+         <a class="close" href="#" >x</a>
+         Bill added Sucessfully
+       </div>
+     </div>
+  <div id="hideforProgessbar">
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Login In</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="myForm" method="get" action="HomePage.html">
+                        <div class="form-group">
+                            <label for="inputEmail">Email ID</label>
+                            <input type="email" class="form-control" id="inputEmail" placeholder="Email" autofocus>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword">Password</label>
+                            <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                        </div>
+                        <div id="errorclass" class="alert alert-danger" role="alert">
+                          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                          <span class="sr-only">Error:</span>
+                          Invalid Username or Password
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox">Remember me</label>
+                        </div>
+                        <input type="submit" id="loginButton" class="btn  btn-info">
+                    </form>
+                </div>
+                <!-- End of Modal body -->
+            </div>
+            <!-- End of Modal content -->
+        </div>
+        <!-- End of Modal dialog -->
+    </div>    
+    <!-- Sign up Modal -->
+      <div class="modal fade" id="signup_modal" role="dialog">
+        <div class="modal-dialog">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Sign Up</h4>
+            </div><!-- modal-header div ends-->
+
+            <div class="modal-body">
+              <form id="myForm1" class="form-horizontal" role="form">
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="name">First Name:</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="fname" placeholder="Enter First Name" required>
+                    </div><!-- col-sm-10 div ends-->
+                </div><!-- form-group div ends-->
+
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="name">Last Name:</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="lname" placeholder="Enter Last Name"  required>
+                    </div><!-- col-sm-10 div ends-->
+                </div><!-- form-group div ends-->
+
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="email">Email:</label>
+                    <div class="col-sm-10">
+                      <input type="email" class="form-control" id="email" placeholder="Enter email"  required>
+                    </div><!-- col-sm-10 div ends-->
+                </div><!-- form-group div ends-->
+                <div id="errorclass1" class="alert alert-danger" role="alert">
+                  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                  <span class="sr-only">Error:</span>
+                  Username Already Exists
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="pwd">Password:</label>
+                    <div class="col-sm-10">          
+                      <input type="password" class="form-control" id="pwd" placeholder="Enter password"  required>
+                    </div><!-- col-sm-10 div ends-->
+                </div><!-- form-group div ends-->
+
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="pwd">Password:</label>
+                    <div class="col-sm-10">          
+                      <input type="password" class="form-control" id="pwd" placeholder="Enter password"  required>
+                    </div><!-- col-sm-10 div ends-->
+                </div><!-- form-group div ends-->
+              
+            </div><!-- modal-body div ends-->
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="submit" id="signUpButton" class="btn btn-primary">Submit</button>
+
+            </div><!-- modal-footer div ends-->
+            </form>
+          </div><!-- modal-content div ends-->
+        </div><!-- modal-dialog div ends-->
+      </div><!-- modal fade div ends-->
+
+
+<div id="myCarousel" class="carousel slide imgresponsive" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+    <li data-target="#myCarousel" data-slide-to="3"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
+    <div class="item active">
+      <img src="images/split-wise.png" alt="Flower">      
+    </div>
+
+   <!--  <div class="item" >
+      <img  src="images/split-the-bill.jpg" alt="Chania">
+    </div> -->
+
+    <div class="item">
+      <img src="images/split12.jpg" alt="Chania">
+    </div>
+
+    <div class="item">
+      <img src="images/split14.png" alt="Flower">
+    </div>
+  </div>
+
+  <!-- Left and right controls -->
+  <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+<div class="forBorder">
+  <div class="aboutUs" id="aboutus" >
+      <div id="aboutUsfirst">
+          <h3><strong>What is Split Expenses?</strong></h3>
+      </div>  
+      
+      <div id ="aboutUsSecond">
+          <p>Split Expenses is a web platform that helps people share expenses with their friends.</p>
+          <p>Roommates, travelers, couples, and friends use Split Expenses as a "shared ledger in the cloud." Friends enter shared bills, IOUs, and payments as they occur, and Split Expenses tracks who owes who. Some people use Spliwise as a form of "karma" to see who should pay for lunch this week, while others settle up regularly every month using cash, check, or integrated online payment (provided by 3rd parties).</p>
+      </div>
+      <div>
+          <h3><strong>The Split Expense team</strong></h3>        
+          <div id ="teamId"class="row">
+              <div class="col-md-3">
+                  <img src="images/kt.jpg" class="img-circle imgresponsive" alt="Ketki">
+                  <h5><strong>Ketki Thakre</strong>   CEO</h5>
+                  <div>
+                      <p>Currently pursing Masters in Information Systems. Loves Coding and is very passionate about technology</p>
+                  </div>  
+              </div>
+              <div class="col-md-3"><img class="img-circle imgresponsive" src="images/neha.jpg" alt="Ketki">
+                  <h5><strong>Neha Savanur</strong>   CFO</h5>
+                  <div>
+                      <p>Currently pursing Masters in Information Assurance. Loves hacking and is very passionate about security</p>
+                  </div>  
+              </div>
+              <div class="col-md-3"><img src="images/rads.jpg" class="img-circle imgresponsive" alt="Ketki">
+                  <h5><strong>Radhika Bade</strong>   COO</h5>
+                   <div>
+                      <p>Currently pursing Masters in ECE. Loves hardware and is very passionate about singing in the shower and dancing in the mirror</p>
+                  </div> 
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="">
+  <div class="contactUs" id="contactUs">
+       <div id="contactUsfirst">
+         
+          <div class="row">
+                 <div class="col-md-12">
+                     <div class="">
+                         <form class="form-horizontal" method="post">
+                             <fieldset>
+                                 <legend class="header"> <h3><strong>Contact Us</strong></h3></legend>
+
+                                 <div class="form-group">
+                                     <span class="col-md-1 text-center"><i class="fa fa-user bigicon"></i></span>
+                                     <div class="col-md-8">
+                                         <input id="fname" name="name" type="text" placeholder="First Name" class="form-control" required>
+                                     </div>
+                                 </div>
+                                 <div class="form-group">
+                                     <span class="col-md-1 text-center"><i class="fa fa-user bigicon"></i></span>
+                                     <div class="col-md-8">
+                                         <input id="lname" name="name" type="text" placeholder="Last Name" class="form-control" required>
+                                     </div>
+                                 </div>
+
+                                 <div class="form-group">
+                                     <span class="col-md-1 text-center"><i class="fa fa-envelope-o bigicon"></i></span>
+                                     <div class="col-md-8">
+                                         <input id="email" name="email" type="text" placeholder="Email Address" class="form-control" required>
+                                     </div>
+                                 </div>
+
+                                 <div class="form-group">
+                                     <span class="col-md-1 text-center"><i class="fa fa-phone-square bigicon"></i></span>
+                                     <div class="col-md-8">
+                                         <input id="phone" name="phone" type="text" placeholder="Phone" class="form-control" required>
+                                     </div>
+                                 </div>
+
+                                 <div class="form-group">
+                                     <span class="col-md-1 text-center"><i class="fa fa-pencil-square-o bigicon"></i></span>
+                                     <div class="col-md-8">
+                                         <textarea class="form-control" id="message" name="message" placeholder="Enter your massage for us here. We will get back to you within 2 business days." rows="7"></textarea>
+                                     </div>
+                                 </div>
+
+                                 <div id="submitDiv" class="form-group">
+                                     <div class="col-md-12">
+                                         <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                                     </div>
+                                 </div>
+                             </fieldset>
+                         </form>
+                     </div>
+                 </div>
+             </div>
+      </div> 
+
+  </div>
+</div>
+
+</div>
+
+<script type="text/javascript">
+
+$(".navbar li a").on("click", function(){
+   $(".nav").find(".active").removeClass("active");
+   $(this).parent().addClass("active");
+});
+$(".navbar-brand").click(function(e) {
+        e.preventDefault();
+        var link = $(this);
+        var href = link.attr("href");
+        $("html,body").animate({scrollTop: $(href).offset().top - 50}, 1000);
+        link.closest(".navbar").find(".navbar-toggle:not(.collapsed)").click();
+  });
+$('#myModal').on('show.bs.modal', function () {
+  $('#inputEmail').focus()
+})
+
+$(window).scroll( function(){
+        /* Check the location of each desired element */
+        $('.hideforProgessbar').each( function(i){  
+            var bottom_of_object = $(this).offset().top + $(this).outerHeight();
+            var bottom_of_window = $(window).scrollTop() + $(window).height();
+            /* If the object is completely visible in the window, fade it it */
+            if( bottom_of_window > bottom_of_object ){  
+                $(this).animate({'opacity':'1'},500);       
+            }
+              }); 
+              });  
+</script>
+<script >
+    var flag ;
+      $(document).ready(function() {
+      var a;
+      
+      $("#loginButton").click(function() {
+        var username = $("#inputEmail").val();
+        var password = $("#inputPassword").val();
+        console.log(username + " " + password);
+        if (username.length > 0 && password.length > 0) {
+          $.get("http://localhost:8080/com/login", {
+            username : username,
+            password : password
+          }, function(data, status) {
+            a = data;
+            console.log(a);
+            var b = "true";
+            if (a == b) {
+              flag = true;
+              console.log(flag);                         
+              //console.log("change");
+            }else{
+              flag = false;
+            }
+          });
+        }
+      });   
+      // $( "#myForm" ).submit(function( event ) {
+      //     if (flag ) {
+      //       console.log("aaya");              
+      //       return;
+      //     }    
+      //     event.preventDefault();
+      //   });
+      });
+  $( "#myForm" ).submit(function( event ) {
+      if (flag ) {
+        console.log("aaya");              
+        return;
+      }    
+      $('#errorclass').show();
+      event.preventDefault();
+    });
+
+
+//signup ajax
+      var flag1;
+      $(document).ready(function() {
+      var a;
+      
+      $("#signUpButton").click(function() {
+        var username = $("#email").val();
+        // var password = $("#inputPassword").val();
+        console.log(username);
+        if (username.length > 0 ) {
+          $.get("http://localhost:8080/com/signUp", {
+            username : username
+           
+          }, function(data, status) {
+            a = data;
+            console.log(a);
+            var b = "true";
+            if (a == b) {
+              flag = true;
+              console.log(flag);  
+              $('#errorclass1').show();                         
+              //console.log("change");
+            }else{
+              flag = false;
+            }
+          });
+        }
+      });   
+      // $( "#myForm" ).submit(function( event ) {
+      //     if (flag ) {
+      //       console.log("aaya");              
+      //       return;
+      //     }    
+      //     event.preventDefault();
+      //   });
+      });
+      
+  // $( "#myForm1" ).submit(function( event ) {
+  //     if (flag ) {       
+  //      $('#errorclass1').show();         
+  //       event.preventDefault();
+  //       return false;
+  //     }    
+  //     $('#flash-container').css("display","block");
+  //     // event.preventDefault();
+  //   });
+</script>
+
+</body>
+<html>
